@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
-    <?= DetailView::widget([
+<?php
+    echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
@@ -36,6 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'stock',
             'be_sold',
         ],
-    ]) ?>
+    ]);
+
+    echo HTML::tag('h1','Photos');
+    $model->getPhotos();
+?>
+
 
 </div>
