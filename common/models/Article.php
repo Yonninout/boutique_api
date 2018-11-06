@@ -23,6 +23,16 @@ use yii\helpers\Html;
  */
 class Article extends \yii\db\ActiveRecord
 {
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        // remove fields that contain sensitive information
+        unset($fields['photo_folder']);
+
+        return $fields;
+    }
+
     /**
      * {@inheritdoc}
      */

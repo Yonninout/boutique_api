@@ -47,7 +47,7 @@ return [
                 '<controller:\w+>/<id:[\d\-]+>' => 'v1/<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:[\d\-]+>' => 'v1/<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => 'v1/<controller>/<action>',
-		        ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article'],
+		        // ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article'],
             ],
         ],
 	'request' => [
