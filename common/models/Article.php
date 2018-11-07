@@ -70,7 +70,6 @@ class Article extends \yii\db\ActiveRecord
             'be_sold' => 'Be Sold',
         ];
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -81,26 +80,37 @@ class Article extends \yii\db\ActiveRecord
 
 
     public function getPhotosURLS(){
-        $files = scandir('../../'.$this->photo_folder, SCANDIR_SORT_ASCENDING);
-        foreach ($files as $key => $file) {
-            if (is_dir($file)) {    
-                unset($files[$key]);
-            }else{
-                $files[$key] = '@'.$this->photo_folder.$file; 
+        $directory = '../../'.$this->photo_folder;
+        if (file_exists($directory)) {
+            $files = scandir($directory, SCANDIR_SORT_ASCENDING);
+            foreach ($files as $key => $file) {
+                if (is_dir($file)) {    
+                    unset($files[$key]);
+                }else{
+                    $files[$key] = '@'.$this->photo_folder.$file; 
+                }
             }
+            $urls = array_values($files);
+        }else {
+            $urls = NULL;
         }
-        return array_values($files);
+        return $urls;
     }
 
     public function getPhotos(){
-        // $article = Article::find(1)->one();
-        $photos = $this->getPhotosURLS();
-        echo HTML::beginTag('div', ['class'=> 'row']);
-        foreach ($photos as $key => $url) {
-            //TODO Create alt description   
-            echo Html::img($url, ['alt'=>'', 'class'=> 'col-lg-4', 'style' => '; max-height: auto']);
+        $urls = $this->getPhotosURLS();
+        if ($urls !== NULL) {
+            echo HTML::beginTag('div', ['class'=> 'row']);
+            foreach ($urls as $key => $url) {
+                //TODO Create alt description   
+                echo Html::img($url, ['alt'=>'', 'class'=> 'col-lg-4', 'style' => 'max-height: auto']);
+            }
+            echo HTML::endTag('div');
+        } else {
+            $content  = 'No photo available, check folder on server ';
+            $content .= HTML::tag('i',null,['class' => 'fas fa-exclamation-triangle']);
+            $content .= HTML::tag('span',' article not available on online ',['class' => 'badge badge-error']);
+            echo HTML::tag('div',$content,['class' => 'alert alert-danger']);
         }
-        echo HTML::endTag('div');
     }
-
 }

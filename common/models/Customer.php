@@ -36,13 +36,11 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'username', 'hash_pass', 'first_name', 'last_name', 'address', 'mail', 'created_at', 'updated_at'], 'required'],
-            [['id'], 'integer'],
+            [['username', 'hash_pass', 'first_name', 'last_name', 'address', 'mail', 'created_at', 'updated_at'], 'required'],
             [['created_at', 'updated_at'], 'safe'],
             [['username', 'first_name', 'last_name', 'address', 'phone_number'], 'string', 'max' => 45],
             [['hash_pass'], 'string', 'max' => 255],
             [['mail'], 'string', 'max' => 100],
-            [['id'], 'unique'],
         ];
     }
 

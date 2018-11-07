@@ -32,11 +32,26 @@ AppAsset::register($this);
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
+            //Index links 
             $menuItems = [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Articles', 'url' => ['/article/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
+                [
+                    'label' => 'Overall view', 'items' => [
+                        ['label' => 'Articles', 'url' => ['/article/index']],
+                        ['label' => 'Customers', 'url' => ['/customer/index']],
+                        ['label' => 'Is ordered', 'url' => ['/isordered/index']],
+                        ['label' => 'Orders', 'url' => ['/order/index']],
+                    ],
+                ],
+            ];
+            //create links 
+            $menuItems[] = 
+            [
+                'label' => 'Create', 'items' => [
+                    ['label' => 'Articles', 'url' => ['/article/create']],
+                    ['label' => 'Customers', 'url' => ['/customer/create']],
+                    ['label' => 'Is ordered', 'url' => ['/isordered/create']],
+                    ['label' => 'Orders', 'url' => ['/order/create']],
+                ],
             ];
             if (Yii::$app->user->isGuest) {
                 $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

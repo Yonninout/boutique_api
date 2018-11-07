@@ -18,7 +18,7 @@ class IsorderedSearch extends IsOrdered
     public function rules()
     {
         return [
-            [['id', 'id_article', 'id_order'], 'integer'],
+            [['id', 'id_article', 'id_order', 'quantity'], 'integer'],
         ];
     }
 
@@ -61,6 +61,7 @@ class IsorderedSearch extends IsOrdered
             'id' => $this->id,
             'id_article' => $this->id_article,
             'id_order' => $this->id_order,
+            'quantity' => $this->quantity,
         ]);
 
         return $dataProvider;

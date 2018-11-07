@@ -32,12 +32,11 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'id_customer', 'total_price', 'created_at', 'delivery_adress'], 'required'],
-            [['id', 'id_customer'], 'integer'],
+            [['id_customer', 'total_price', 'created_at', 'delivery_adress'], 'required'],
+            [['id_customer'], 'integer'],
             [['total_price'], 'number'],
             [['created_at'], 'string', 'max' => 45],
             [['delivery_adress'], 'string', 'max' => 255],
-            [['id'], 'unique'],
             [['id_customer'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['id_customer' => 'id']],
         ];
     }
