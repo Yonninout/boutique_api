@@ -25,6 +25,16 @@ class Order extends \yii\db\ActiveRecord
     {
         return 'order';
     }
+    
+    public function fields(){
+        $fields = parent::fields();
+        
+        return $fields;
+    }
+
+    public function extraFields() {
+        return ['customer'];
+    }
 
     /**
      * {@inheritdoc}
