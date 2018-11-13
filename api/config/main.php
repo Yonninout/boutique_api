@@ -44,19 +44,22 @@ return [
         ],
         'urlManager' => [
 			'rules' => [
+                //!\ rules are tested and applied when one works fine
                 '<controller:\w+>/<id:[\d\-]+>' => 'v1/<controller>/view',
+                '<controller:\w+>/<action:month>/<month:[\d\-]+>' => 'v1/<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<id:[\d\-]+>' => 'v1/<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => 'v1/<controller>/<action>',
 		        // ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article'],
             ],
         ],
-	'request' => [
+        'request' => [
             'parsers' => [
-        	   'application/json' => 'yii\web\JsonParser',
-    	    ],
-	],
+                'application/json' => 'yii\web\JsonParser',
+            ],
+        ],
         'response' => [
             'class' => \yii\web\Response::className(),
+            // 'format' => \yii\web\Response::FORMAT_JSON,
             'on beforeSend' => function ($event) {
                 $response = $event->sender;
                 if ($response->data !== null && ($exception = Yii::$app->getErrorHandler()->exception) !== null) {
@@ -65,8 +68,8 @@ return [
                     ];
                 }
             },
-                ],
-            ],
-            'params' => $params,
-        ];
+        ],
+    ],
+    'params' => $params,
+];
         
