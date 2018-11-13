@@ -8,17 +8,9 @@ use yii\rest\ActiveController;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use yii\helpers\ArrayHelper;
+
 use common\models\Article;
-
-
-
-
-
-
-
-
-
-
 
 class ArticleController extends ActiveController {
 
@@ -35,7 +27,6 @@ class ArticleController extends ActiveController {
 
 	    return $actions;
 	}
-
 
 	public function actionView($id) {
 
@@ -64,30 +55,37 @@ class ArticleController extends ActiveController {
 		// return password_hash("clement", PASSWORD_BCRYPT, ["cost" => $cost]);
 
 		// return "Valeur de 'cost' la plus appropriée : " . $cost. "   hash: ".$a; 
-	    Yii::$app->response->format = Response::FORMAT_JSON;
 		$article = Article::find()->where(['=','id',intval($id)])->one();
 		if(is_null($article)) {
         	throw new NotFoundHttpException("Article not found", 404);
 		};
-		return $article;
+		return $this->asJson($article);
 	}
 	// GET all item currently to sell
 	public function actionTosell(){
 		// return 'lol';
 		$return = Article::find()->where(['=','be_sold','1'])->all();
-		return $return;
+		return $this->asJson($return);
 	}
 	
 	// GET all item currently not to sell;
-	public function actionNotosell(){
-		return 'lol';
+	public function actionNottosell(){
+		$return = Article::find()->where(['=','be_sold',0])->all();
+		return $this->asJson($return);
 	}
 	
 	// GET an array of one item selected by its id
 
 	public function actionPhotourl($id){
-		return $id;
+		$article = Article::find()->where(['=','id',intval($id)])->one();
+		if (!isset($article)) {
+        	throw new NotFoundHttpException("Article not found", 404);
+		}else{
+			$urls = $article->getPhotosURLS();
+			// $array = ArrayHelper::toArray($article);
+			// $array['urls'] = $urls;
+
+			return $this->asJson($urls);
+		}
 	}
-
-
 }

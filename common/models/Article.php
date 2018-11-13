@@ -23,6 +23,9 @@ use yii\helpers\Html;
  */
 class Article extends \yii\db\ActiveRecord
 {
+    public $urls;
+
+
     public function fields()
     {
         $fields = parent::fields();
