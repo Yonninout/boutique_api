@@ -46,10 +46,13 @@ return [
 			'rules' => [
                 //!\ rules are tested and applied when one works fine
                 '<controller:\w+>/<id:[\d\-]+>' => 'v1/<controller>/view',
-                '<controller:\w+>/<action:month>/<month:[\d\-]+>' => 'v1/<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<id:[\d\-]+>' => 'v1/<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => 'v1/<controller>/<action>',
-		        // ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article'],
+                //rules for date report on orders
+                '<controller:\w+>/<action:date>/<year:[\d\-]+>/<month:[\d\-]+>/<day:[\d\-]+>' => 'v1/<controller>/<action>',
+                '<controller:\w+>/<action:date>/<year:[\d\-]+>/<month:[\d\-]+>' => 'v1/<controller>/<action>',
+                '<controller:\w+>/<action:date>/<year:[\d\-]+>' => 'v1/<controller>/<action>',
+                // ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/article'],
             ],
         ],
         'request' => [
