@@ -30,6 +30,15 @@ class Customer extends \yii\db\ActiveRecord
         return 'customer';
     }
 
+
+    public function fields(){
+        $fields = parent::fields();
+    
+        unset($fields['hash_pass']);
+
+        return $fields;
+    }
+
     /**
      * {@inheritdoc}
      */
