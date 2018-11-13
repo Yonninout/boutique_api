@@ -37,27 +37,28 @@ class OrderController extends ActiveController {
 	}
 
 	public function actionView($id = 0) {
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$order = Order::find()->with('customer')->where(['=','id',intval($id)])->one();
 		// var_dump($order);
 		if(!isset($order) || $order === []) {
         	throw new NotFoundHttpException("Order not found", 404);
 		};
+
+		$this->jsonExport();
 		return $order;
 	}
 
 	//get all orders of a choosen customer
 	public function actionCustomerid($id) {
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$order = Order::find()->where(['=','id_customer',intval($id)])->all();
 		if(!isset($order) || $order === []) {
         	throw new NotFoundHttpException("No Orders founded for the client with id[$id]", 404);
 		};
+
+		$this->jsonExport();
 		return $order;
 	}
 
 	public function actionDate($year, $month = null, $day = null) {
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$query = Order::find();
 		if (!checkdate(1,1,$year) ) {
 			throw new BadRequestHttpException(
@@ -90,6 +91,11 @@ class OrderController extends ActiveController {
 		$orders = $query->all();
 		$return = sizeof($orders) == 0 ? false : $orders;
 
+		$this->jsonExport();
 		return $return;
+	}
+
+	public function jsonExport() {
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 	}
 }
