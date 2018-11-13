@@ -70,4 +70,13 @@ class Order extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Customer::className(), ['id' => 'id_customer']);
     }
+
+    /**
+     * {@inheritdoc}
+     * @return OrderQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new OrderQuery(get_called_class());
+    }
 }
