@@ -34,7 +34,7 @@ class Customer extends \yii\db\ActiveRecord
     public function fields(){
         $fields = parent::fields();
     
-        unset($fields['hash_pass']);
+        // unset($fields['hash_pass']);
 
         return $fields;
     }
@@ -79,4 +79,13 @@ class Customer extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Order::className(), ['id_customer' => 'id']);
     }
+
+
+    /** 
+    * {@inheritdoc} 
+    * @return CustomerQuery the active query used by this AR class. 
+    */ 
+    public static function find() { 
+        return new CustomerQuery(get_called_class()); 
+    } 
 }
